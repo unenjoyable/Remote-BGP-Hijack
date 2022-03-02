@@ -11,6 +11,9 @@ python2 get-pip.py
 ```
 ## Usage
 
+Edit the script and change line 22 and 30 where it says 'change to ip you want to redirect the traffic to'
+
+To run the script
 ```
 python2 bgp.py (ip)
 ```
